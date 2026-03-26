@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeadTails</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 1000px;
+            background-color: #f0f0f0;
+        }
+        button {
+            padding: 80px 100px;
+            margin: 10px;
+            font-size: 50px;
+            cursor: pointer;
+        }
+        .heads {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .tails {
+            background-color: #2196F3;
+            color: white;
+        }
+        .reset {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<button class="heads" onclick="flipCoin('heads')">Heads</button>
+<button class="tails" onclick="flipCoin('tails')">Tails</button>
+<button class="reset" onclick="localStorage.removeItem('record'); alert('Record reset!')">Reset Record</button>
+</body>
+<script>
+    const record=JSON.parse(localStorage.getItem('record')) || {
+        wins: 0,
+        losses: 0
+    }
+    let computerChoice='';
+    function flipCoin(choice) {
+        const result= Math.random()
+        if(result < 0.5){
+           computerChoice = 'heads'; 
+        } else {
+            computerChoice = 'tails';
+        }
+        if(choice === computerChoice){
+            record.wins++;
+            alert('You win! Computer chose ' + computerChoice + "record: " + record.wins + " wins, " + record.losses + " losses");
+        } else {
+            record.losses++;
+            alert('You lose! Computer chose ' + computerChoice + "record: " + record.wins + " wins, " + record.losses + " losses");
+        }
+        localStorage.setItem('record', JSON.stringify(record));
+    }
+</script>
+</html>
