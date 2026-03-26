@@ -10,12 +10,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 1000px;
             background-color: #f0f0f0;
         }
         button {
-            padding: 80px 100px;
-            margin: 10px;
+            width:500px;
+            height: 150px;
+            margin: 30px;
             font-size: 50px;
             cursor: pointer;
         }
@@ -36,10 +36,10 @@
 <body>
 <button class="heads" onclick="flipCoin('heads')">Heads</button>
 <button class="tails" onclick="flipCoin('tails')">Tails</button>
-<button class="reset" onclick="localStorage.removeItem('record'); alert('Record reset!')">Reset Record</button>
+<button class="reset" onclick="localStorage.removeItem('record'); alert('Record reset!'); record.wins=record.losses=0">Reset Record</button>
 </body>
 <script>
-    const record=JSON.parse(localStorage.getItem('record')) || {
+    let record=JSON.parse(localStorage.getItem('record')) || {
         wins: 0,
         losses: 0
     }
