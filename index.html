@@ -10,33 +10,52 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: #f0f0f0;
+            background-color: #5f5f5f;
         }
         button {
-            width:500px;
-            height: 150px;
+            width:400px;
+            height: 100px;
             margin: 30px;
             font-size: 50px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
             cursor: pointer;
+            border-radius: 50px;
         }
         .heads {
-            background-color: #4CAF50;
+            background-color: #317933;
             color: white;
         }
         .tails {
-            background-color: #2196F3;
+            background-color: #1875c0;
             color: white;
         }
         .reset {
-            background-color: #f44336;
+            background-color: #aa2d24;
             color: white;
+        }
+        .Record {
+            font-size: 30px;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            font-color: #ffffff;
+            display: flex;
+            gap: 20px;
+            background-color: #bfbf8f;
+            padding: 20px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
 <button class="heads" onclick="flipCoin('heads')">Heads</button>
 <button class="tails" onclick="flipCoin('tails')">Tails</button>
-<button class="reset" onclick="localStorage.removeItem('record'); alert('Record reset!'); record.wins=record.losses=0">Reset Record</button>
+<button class="reset" onclick="localStorage.removeItem('record'); alert('Record reset!'); document.querySelector('.wins').textContent= '0'; document.querySelector('.losses').textContent= '0'; record.wins=record.losses=0; document.querySelector('.computer-choice').textContent = '';">Reset Record</button>
+<div class="Record">
+    <p>Wins: <span class="wins">0</span></p>
+    <p>Losses: <span class="losses">0</span></p>
+    <p>Computer Choice: <span class="computer-choice"></span></p>
+
+</div>
 </body>
 <script>
     let record=JSON.parse(localStorage.getItem('record')) || {
@@ -51,12 +70,11 @@
         } else {
             computerChoice = 'tails';
         }
+        document.querySelector('.computer-choice').textContent = computerChoice;    
         if(choice === computerChoice){
-            record.wins++;
-            alert('You win! Computer chose ' + computerChoice + "record: " + record.wins + " wins, " + record.losses + " losses");
+            document.querySelector('.wins').textContent = ++record.wins;
         } else {
-            record.losses++;
-            alert('You lose! Computer chose ' + computerChoice + "record: " + record.wins + " wins, " + record.losses + " losses");
+            document.querySelector('.losses').textContent = ++record.losses;
         }
         localStorage.setItem('record', JSON.stringify(record));
     }
